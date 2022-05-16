@@ -9,6 +9,7 @@ builder.Services.AddDbContext<VehicleContext>(opt => opt.UseInMemoryDatabase("Fl
 builder.Services.AddDbContext<DeliveryPointContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
 builder.Services.AddDbContext<BagContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
 builder.Services.AddDbContext<PackageContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
+builder.Services.AddDbContext<ShipmentContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
