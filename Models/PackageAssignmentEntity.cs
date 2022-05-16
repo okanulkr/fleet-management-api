@@ -1,6 +1,6 @@
 namespace FleetManagementApi.Models;
 
-public class ShipmentEntity
+public class PackageAssignmentEntity
 {
     public Guid Id { get; set; }
     public string? Barcode { get; set; }
