@@ -9,11 +9,13 @@ public class PackageAssignmentController : ControllerBase
 {
     private readonly ILogger<PackageAssignmentController> _logger;
     PackageAssignmentContext _dbContext;
+    PackageContext _packageDbContext;
 
-    public PackageAssignmentController(ILogger<PackageAssignmentController> logger, PackageAssignmentContext dbContext)
+    public PackageAssignmentController(ILogger<PackageAssignmentController> logger, PackageAssignmentContext dbContext, PackageContext packageDbContext)
     {
         _logger = logger;
         _dbContext = dbContext;
+        _packageDbContext = packageDbContext;
     }
 
     [HttpGet("GetAll")]
@@ -31,12 +33,14 @@ public class PackageAssignmentController : ControllerBase
     [HttpPost("Create")]
     public IActionResult Create(PackageAssignmentCreateRequest request)
     {
+        PackageEntity package = _packageDbContext.Packages.Single(x => x.Barcode == request.Barcode);
+        package.State = State.LoadedIntoBag;
+        _packageDbContext.SaveChanges();
+
         PackageAssignmentEntity entity = new PackageAssignmentEntity();
         entity.Barcode = request.Barcode;
         entity.BagBarcode = request.BagBarcode;
-        // TODO
-        // find package byBarcode
-        // update package barcode as 'LoadedIntoBag'
+
         _dbContext.Add<PackageAssignmentEntity>(entity);
         _dbContext.SaveChanges();
 
