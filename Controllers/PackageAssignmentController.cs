@@ -33,15 +33,23 @@ public class PackageAssignmentController : ControllerBase
     [HttpPost("Create")]
     public IActionResult Create(PackageAssignmentCreateRequest request)
     {
+        // Update package state as 'LoadedIntoBag'
         PackageEntity package = _packageDbContext.Packages.Single(x => x.Barcode == request.Barcode);
         package.State = State.LoadedIntoBag;
+
+        // Increment weight of bag by package weight
+        PackageEntity bag = _packageDbContext.Packages.Single(x => x.Barcode == request.BagBarcode);
+        bag.Weight += package.Weight;
+
         _packageDbContext.SaveChanges();
 
-        PackageAssignmentEntity entity = new PackageAssignmentEntity();
-        entity.Barcode = request.Barcode;
-        entity.BagBarcode = request.BagBarcode;
-
-        _dbContext.Add<PackageAssignmentEntity>(entity);
+        // Add package to bag assignment
+        PackageAssignmentEntity entity = new PackageAssignmentEntity()
+        {
+            Barcode = request.Barcode,
+            BagBarcode = request.BagBarcode
+        };
+        _dbContext.Add(entity);
         _dbContext.SaveChanges();
 
         return CreatedAtAction(nameof(GetById), new { id = entity.Id });

@@ -28,14 +28,29 @@ public class PackageController : ControllerBase
         return _dbContext.Packages.Single(x => x.Id == id);
     }
 
-    [HttpPost("Create")]
-    public IActionResult Create(PackageCreateRequest request)
+    [HttpPost("CreatePackage")]
+    public IActionResult CreatePackage(PackageCreateRequest request)
     {
         PackageEntity entity = new PackageEntity();
+        entity.PackageType = PackageType.Package;
+        entity.State = State.Created;
         entity.Barcode = request.Barcode;
         entity.DeliveryPoint = request.DeliveryPoint;
         entity.Weight = request.Weight;
+        _dbContext.Add<PackageEntity>(entity);
+        _dbContext.SaveChanges();
+
+        return CreatedAtAction(nameof(GetById), new { id = entity.Id });
+    }
+
+    [HttpPost("CreateBag")]
+    public IActionResult CreateBag(BagCreateRequest request)
+    {
+        PackageEntity entity = new PackageEntity();
+        entity.PackageType = PackageType.Bag;
         entity.State = State.Created;
+        entity.Barcode = request.Barcode;
+        entity.DeliveryPoint = request.DeliveryPoint;
         _dbContext.Add<PackageEntity>(entity);
         _dbContext.SaveChanges();
 

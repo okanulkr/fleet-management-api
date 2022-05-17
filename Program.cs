@@ -7,7 +7,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<VehicleContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
 builder.Services.AddDbContext<DeliveryPointContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
-builder.Services.AddDbContext<BagContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
 builder.Services.AddDbContext<PackageContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
 builder.Services.AddDbContext<PackageAssignmentContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
 

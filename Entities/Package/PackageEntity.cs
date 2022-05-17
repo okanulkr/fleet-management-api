@@ -7,4 +7,5 @@ public class PackageEntity
     public int DeliveryPoint { get; set; }
     public int Weight { get; set; }
     public State State { get; set; }
+    public PackageType PackageType { get; set; }
 }
