@@ -34,6 +34,7 @@ public class BagController : ControllerBase
         BagEntity entity = new BagEntity();
         entity.Barcode = request.Barcode;
         entity.DeliveryPoint = request.DeliveryPoint;
+        entity.State = State.Created;
         _dbContext.Add<BagEntity>(entity);
         _dbContext.SaveChanges();
 

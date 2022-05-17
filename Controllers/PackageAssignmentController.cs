@@ -34,6 +34,9 @@ public class PackageAssignmentController : ControllerBase
         PackageAssignmentEntity entity = new PackageAssignmentEntity();
         entity.Barcode = request.Barcode;
         entity.BagBarcode = request.BagBarcode;
+        // TODO
+        // find package byBarcode
+        // update package barcode as 'LoadedIntoBag'
         _dbContext.Add<PackageAssignmentEntity>(entity);
         _dbContext.SaveChanges();
 

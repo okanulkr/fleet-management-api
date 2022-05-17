@@ -35,6 +35,7 @@ public class PackageController : ControllerBase
         entity.Barcode = request.Barcode;
         entity.DeliveryPoint = request.DeliveryPoint;
         entity.Weight = request.Weight;
+        entity.State = State.Created;
         _dbContext.Add<PackageEntity>(entity);
         _dbContext.SaveChanges();
 

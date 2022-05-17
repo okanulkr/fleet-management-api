@@ -18,6 +18,9 @@ public class ShipmentController : ControllerBase
     [HttpPost("Ship")]
     public IActionResult Ship(ShipmentCreateRequest request)
     {
+        // TODO
+        // update all packages as 'loaded'
+        // update related bags as 'loaded'
         return Ok();
     }
 }
