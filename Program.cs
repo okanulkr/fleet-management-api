@@ -1,4 +1,4 @@
-using FleetManagementApi.Models;
+using FleetManagementApi.Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,9 +1,9 @@
-namespace FleetManagementApi.Models;
+namespace FleetManagementApi.Entities;
 
-public class PackageEntity
+public class BagEntity
 {
     public Guid Id { get; set; }
     public string? Barcode { get; set; }
     public int DeliveryPoint { get; set; }
-    public int Weight { get; set; }
+    public State State { get; set; }
 }

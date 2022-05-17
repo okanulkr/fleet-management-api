@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace FleetManagementApi.Models
+namespace FleetManagementApi.Entities
 {
     public class VehicleContext : DbContext
     {

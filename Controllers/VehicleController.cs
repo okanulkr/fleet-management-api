@@ -1,4 +1,4 @@
-using FleetManagementApi.Models;
+using FleetManagementApi.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
