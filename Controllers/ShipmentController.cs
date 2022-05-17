@@ -119,6 +119,12 @@ public class ShipmentController : ControllerBase
                         }
                     }
                 }
+
+                if (package.State == State.Loaded)
+                {
+                    _logger.LogCritical($"{package.Barcode} not delivered due to wrong delivery point");
+                }
+
                 var deliveryItemResponse = new DeliveryItemResponse() { Barcode = package.Barcode, State = package.State };
                 updatedPoint.Deliveries = updatedPoint.Deliveries.Append(deliveryItemResponse);
                 _packageContext.SaveChanges();
