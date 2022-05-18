@@ -1,7 +1,14 @@
 using FleetManagementApi.Entities;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Configuration;
+using Serilog.Sinks.InMemory;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((ctx, lc) => lc
+    .WriteTo.Console()
+    .WriteTo.InMemory());
 
 builder.Services.AddControllers();
 
