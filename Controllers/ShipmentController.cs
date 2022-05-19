@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using FleetManagementApi.Handlers.Shipment.Commands;
+using FleetManagementApi.Handlers.Shipment.Command;
 using FleetManagementApi.Dto.Shipment.Request;
 using FleetManagementApi.Dto.Shipment.Response;
 

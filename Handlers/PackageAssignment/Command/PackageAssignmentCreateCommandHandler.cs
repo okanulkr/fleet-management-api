@@ -1,6 +1,10 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.Package;
+using FleetManagementApi.Entities.PackageAssignment;
+using FleetManagementApi.Dto.PackageAssignment;
+using FleetManagementApi.Repositories.PackageAssignment;
+using FleetManagementApi.Repositories.Package;
 
-namespace FleetManagementApi.Handlers.PackageAssignment.Commands
+namespace FleetManagementApi.Handlers.PackageAssignment.Command
 {
     public class PackageAssignmentCreateCommandHandler
     {

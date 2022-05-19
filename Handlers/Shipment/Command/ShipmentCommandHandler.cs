@@ -1,8 +1,11 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.Package;
+using FleetManagementApi.Entities.PackageAssignment;
 using Response = FleetManagementApi.Dto.Shipment.Response;
 using Request = FleetManagementApi.Dto.Shipment.Request;
+using FleetManagementApi.Repositories.PackageAssignment;
+using FleetManagementApi.Repositories.Package;
 
-namespace FleetManagementApi.Handlers.Shipment.Commands
+namespace FleetManagementApi.Handlers.Shipment.Command
 {
     public class ShipmentCommandHandler
     {

@@ -1,6 +1,6 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.PackageAssignment;
 
-namespace FleetManagementApi.Dto;
+namespace FleetManagementApi.Dto.PackageAssignment;
 
 public class PackageAssignmentItemDto
 {

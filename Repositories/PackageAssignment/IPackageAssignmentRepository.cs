@@ -1,4 +1,6 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.PackageAssignment;
+
+namespace FleetManagementApi.Repositories.PackageAssignment;
 
 public interface IPackageAssignmentRepository
 {

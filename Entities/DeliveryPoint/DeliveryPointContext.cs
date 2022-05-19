@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace FleetManagementApi.Entities
+namespace FleetManagementApi.Entities.DeliveryPoint
 {
     public class DeliveryPointContext : DbContext
     {

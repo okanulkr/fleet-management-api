@@ -1,5 +1,6 @@
-using FleetManagementApi.Entities;
-using FleetManagementApi.Dto;
+using FleetManagementApi.Entities.DeliveryPoint;
+using FleetManagementApi.Dto.DeliveryPoint;
+using FleetManagementApi.Repositories.DeliveryPoint;
 
 namespace FleetManagementApi.Handlers.DeliveryPoint.Query
 {

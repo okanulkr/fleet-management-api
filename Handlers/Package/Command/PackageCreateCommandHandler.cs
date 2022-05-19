@@ -1,4 +1,6 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.Package;
+using FleetManagementApi.Dto.Package;
+using FleetManagementApi.Repositories.Package;
 
 namespace FleetManagementApi.Handlers.Package.Commands
 {

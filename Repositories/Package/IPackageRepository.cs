@@ -1,4 +1,6 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.Package;
+
+namespace FleetManagementApi.Repositories.Package;
 
 public interface IPackageRepository
 {

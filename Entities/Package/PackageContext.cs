@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace FleetManagementApi.Entities
+namespace FleetManagementApi.Entities.Package
 {
     public class PackageContext : DbContext
     {

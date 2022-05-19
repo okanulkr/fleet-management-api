@@ -1,5 +1,6 @@
-using FleetManagementApi.Entities;
-using FleetManagementApi.Dto;
+using FleetManagementApi.Entities.PackageAssignment;
+using FleetManagementApi.Dto.PackageAssignment;
+using FleetManagementApi.Repositories.PackageAssignment;
 
 namespace FleetManagementApi.Handlers.PackageAssignment.Query
 {

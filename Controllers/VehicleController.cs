@@ -1,8 +1,8 @@
 
 using Microsoft.AspNetCore.Mvc;
-using FleetManagementApi.Handlers.Vehicle.Commands;
+using FleetManagementApi.Handlers.Vehicle.Command;
 using FleetManagementApi.Handlers.Vehicle.Query;
-using FleetManagementApi.Dto;
+using FleetManagementApi.Dto.Vehicle;
 
 namespace FleetManagementApi.Controllers;
 

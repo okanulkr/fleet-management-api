@@ -1,4 +1,6 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.Vehicle;
+
+namespace FleetManagementApi.Repositories.Vehicle;
 
 public interface IVehicleRepository
 {

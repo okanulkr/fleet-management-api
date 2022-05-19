@@ -1,4 +1,4 @@
-namespace FleetManagementApi.Dto
+namespace FleetManagementApi.Dto.Vehicle
 {
     public class VehicleCreateRequest
     {

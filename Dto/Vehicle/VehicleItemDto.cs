@@ -1,6 +1,6 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.Vehicle;
 
-namespace FleetManagementApi.Dto;
+namespace FleetManagementApi.Dto.Vehicle;
 
 public class VehicleItemDto
 {

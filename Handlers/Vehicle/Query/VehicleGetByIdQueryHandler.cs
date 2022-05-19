@@ -1,5 +1,6 @@
-using FleetManagementApi.Entities;
-using FleetManagementApi.Dto;
+using FleetManagementApi.Entities.Vehicle;
+using FleetManagementApi.Dto.Vehicle;
+using FleetManagementApi.Repositories.Vehicle;
 
 namespace FleetManagementApi.Handlers.Vehicle.Query
 {

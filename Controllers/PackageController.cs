@@ -1,5 +1,4 @@
-using FleetManagementApi.Dto;
-using FleetManagementApi.Entities;
+using FleetManagementApi.Dto.Package;
 using FleetManagementApi.Handlers.Package.Commands;
 using FleetManagementApi.Handlers.Package.Query;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-namespace FleetManagementApi.Entities
+namespace FleetManagementApi.Dto.DeliveryPoint
 {
     public class DeliveryPointCreateRequest
     {

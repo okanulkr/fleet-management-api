@@ -1,7 +1,6 @@
-using FleetManagementApi.Dto;
-using FleetManagementApi.Entities;
 using FleetManagementApi.Handlers.DeliveryPoint.Commands;
 using FleetManagementApi.Handlers.DeliveryPoint.Query;
+using FleetManagementApi.Dto.DeliveryPoint;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleetManagementApi.Controllers;

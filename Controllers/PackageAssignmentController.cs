@@ -1,8 +1,7 @@
-using FleetManagementApi.Entities;
 using FleetManagementApi.Handlers.PackageAssignment.Query;
 using Microsoft.AspNetCore.Mvc;
-using FleetManagementApi.Handlers.PackageAssignment.Commands;
-using FleetManagementApi.Dto;
+using FleetManagementApi.Handlers.PackageAssignment.Command;
+using FleetManagementApi.Dto.PackageAssignment;
 
 namespace FleetManagementApi.Controllers;
 

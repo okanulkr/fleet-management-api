@@ -1,6 +1,6 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.Package;
 
-namespace FleetManagementApi.Dto;
+namespace FleetManagementApi.Dto.Package;
 
 public class PackageItemDto
 {

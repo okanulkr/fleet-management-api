@@ -1,4 +1,4 @@
-namespace FleetManagementApi.Entities;
+namespace FleetManagementApi.Entities.Package;
 
 public class PackageEntity
 {

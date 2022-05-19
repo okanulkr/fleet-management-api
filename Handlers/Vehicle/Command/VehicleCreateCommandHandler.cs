@@ -1,7 +1,8 @@
-using FleetManagementApi.Entities;
-using FleetManagementApi.Dto;
+using FleetManagementApi.Entities.Vehicle;
+using FleetManagementApi.Dto.Vehicle;
+using FleetManagementApi.Repositories.Vehicle;
 
-namespace FleetManagementApi.Handlers.Vehicle.Commands
+namespace FleetManagementApi.Handlers.Vehicle.Command
 {
     public class VehicleCreateCommandHandler
     {

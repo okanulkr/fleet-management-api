@@ -1,4 +1,7 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.PackageAssignment;
+using FleetManagementApi.Entities.DeliveryPoint;
+using FleetManagementApi.Entities.Package;
+using FleetManagementApi.Entities.Vehicle;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Configuration;

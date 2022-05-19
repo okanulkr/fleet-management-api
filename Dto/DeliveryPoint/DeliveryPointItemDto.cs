@@ -1,6 +1,6 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.DeliveryPoint;
 
-namespace FleetManagementApi.Dto;
+namespace FleetManagementApi.Dto.DeliveryPoint;
 
 public class DeliveryPointItemDto
 {

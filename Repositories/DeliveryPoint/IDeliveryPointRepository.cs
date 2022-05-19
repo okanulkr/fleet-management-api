@@ -1,4 +1,6 @@
-using FleetManagementApi.Entities;
+using FleetManagementApi.Entities.DeliveryPoint;
+
+namespace FleetManagementApi.Repositories.DeliveryPoint;
 
 public interface IDeliveryPointRepository
 {
