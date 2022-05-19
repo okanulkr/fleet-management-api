@@ -1,5 +1,5 @@
 using FleetManagementApi.Entities;
-using FleetManagementApi.Dto.Shipment.Response;
+using Response = FleetManagementApi.Dto.Shipment.Response;
 using Request = FleetManagementApi.Dto.Shipment.Request;
 
 namespace FleetManagementApi.Handlers.Shipment.Commands
@@ -17,7 +17,7 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
             _packageAssignmentRepository = packageAssignmentRepository;
         }
 
-        public ShipmentResponse? Ship(Request.ShipmentRequest shipment)
+        public Response.ShipmentResponse? Ship(Request.ShipmentRequest shipment)
         {
             // TODO: add existince checks, return null if any resource not found
             _packageRepository.Add(new PackageEntity() { Barcode = "C725799", DeliveryPoint = 2 });
@@ -47,16 +47,16 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
             _packageRepository.SaveChanges();
             _packageAssignmentRepository.SaveChanges();
 
-            ShipmentResponse response = new ShipmentResponse();
+            var response = new Response.ShipmentResponse();
             response.Plate = shipment.Plate;
-            response.Route = new List<ShipmentRoute>();
+            response.Route = new List<Response.ShipmentRoute>();
 
             foreach (var point in shipment.Route!)
             {
-                ShipmentRoute updatedPoint = new ShipmentRoute()
+                var updatedPoint = new Response.ShipmentRoute()
                 {
                     DeliveryPoint = point.DeliveryPoint,
-                    Deliveries = new List<Package>()
+                    Deliveries = new List<Response.Package>()
                 };
                 foreach (var delivery in point.Deliveries!)
                 {
@@ -116,7 +116,7 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
                         _logger.LogInformation($"{package.Barcode} not delivered due to wrong delivery point");
                     }
 
-                    var deliveryItemResponse = new Package() { Barcode = package.Barcode, State = package.State };
+                    var deliveryItemResponse = new Response.Package() { Barcode = package.Barcode, State = package.State };
                     updatedPoint.Deliveries = updatedPoint.Deliveries.Append(deliveryItemResponse);
                     _packageRepository.SaveChanges();
                 }

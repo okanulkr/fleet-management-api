@@ -1,4 +1,7 @@
+using FleetManagementApi.Dto;
 using FleetManagementApi.Entities;
+using FleetManagementApi.Handlers.Package.Commands;
+using FleetManagementApi.Handlers.Package.Query;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleetManagementApi.Controllers;
@@ -7,53 +10,37 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class PackageController : ControllerBase
 {
-    private readonly ILogger<PackageController> _logger;
-    PackageContext _dbContext;
-
-    public PackageController(ILogger<PackageController> logger, PackageContext dbContext)
+    BagCreateCommandHandler _createBagCommandHandler;
+    PackageGetByIdQueryHandler _getByIdQueryHandler;
+    PackageCreateCommandHandler _createPackageCommandHandler;
+    public PackageController(
+        PackageGetByIdQueryHandler queryByIdQueryHandler,
+        PackageCreateCommandHandler createPackageCommandHandler,
+        BagCreateCommandHandler createBagCommandHandler)
     {
-        _logger = logger;
-        _dbContext = dbContext;
-    }
-
-    [HttpGet("GetAll")]
-    public IEnumerable<PackageEntity> GetAll()
-    {
-        return _dbContext.Packages;
+        _getByIdQueryHandler = queryByIdQueryHandler;
+        _createBagCommandHandler = createBagCommandHandler;
+        _createPackageCommandHandler = createPackageCommandHandler;
     }
 
     [HttpGet("GetById")]
-    public PackageEntity GetById(Guid id)
+    public IActionResult GetById(string id)
     {
-        return _dbContext.Packages.Single(x => x.Id == id);
+        PackageItemDto? dto = _getByIdQueryHandler.Handle(id);
+        return dto == null ? NotFound() : Ok(dto);
     }
 
     [HttpPost("CreatePackage")]
     public IActionResult CreatePackage(PackageCreateRequest request)
     {
-        PackageEntity entity = new PackageEntity();
-        entity.PackageType = PackageType.Package;
-        entity.State = State.Created;
-        entity.Barcode = request.Barcode;
-        entity.DeliveryPoint = request.DeliveryPoint;
-        entity.Weight = request.Weight;
-        _dbContext.Add<PackageEntity>(entity);
-        _dbContext.SaveChanges();
-
-        return CreatedAtAction(nameof(GetById), new { id = entity.Id });
+        PackageCreateResponse? response = _createPackageCommandHandler.Handle(request);
+        return response == null ? BadRequest() : CreatedAtAction(nameof(GetById), new { id = response.Barcode });
     }
 
     [HttpPost("CreateBag")]
     public IActionResult CreateBag(BagCreateRequest request)
     {
-        PackageEntity entity = new PackageEntity();
-        entity.PackageType = PackageType.Bag;
-        entity.State = State.Created;
-        entity.Barcode = request.Barcode;
-        entity.DeliveryPoint = request.DeliveryPoint;
-        _dbContext.Add<PackageEntity>(entity);
-        _dbContext.SaveChanges();
-
-        return CreatedAtAction(nameof(GetById), new { id = entity.Id });
+        BagCreateResponse? response = _createBagCommandHandler.Handle(request);
+        return response == null ? BadRequest() : CreatedAtAction(nameof(GetById), new { id = response.Barcode });
     }
 }
