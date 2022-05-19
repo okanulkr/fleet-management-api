@@ -5,18 +5,17 @@ namespace FleetManagementApi.Handlers.Vehicle.Commands
 {
     public class VehicleCreateCommandHandler
     {
-        private readonly VehicleContext _repository;
-        public VehicleCreateCommandHandler(VehicleContext repository)
+        private readonly IVehicleRepository _repository;
+        public VehicleCreateCommandHandler(IVehicleRepository repository)
         {
             _repository = repository;
         }
 
         public VehicleCreateResponse Handle(VehicleCreateRequest vehicle)
         {
+            // handle existence
             var entity = new VehicleEntity() { LicensePlate = vehicle.LicensePlate };
-            _repository.Add(entity);
-            _repository.SaveChanges();
-            return new VehicleCreateResponse { LicensePlate = entity.LicensePlate };
+            return new VehicleCreateResponse { LicensePlate = _repository.Add(entity) };
         }
     }
 }

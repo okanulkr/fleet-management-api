@@ -5,15 +5,15 @@ namespace FleetManagementApi.Handlers.Vehicle.Query
 {
     public class VehicleGetByIdQueryHandler
     {
-        private readonly VehicleContext _repository;
-        public VehicleGetByIdQueryHandler(VehicleContext repository)
+        private readonly IVehicleRepository _repository;
+        public VehicleGetByIdQueryHandler(IVehicleRepository repository)
         {
             _repository = repository;
         }
 
         public VehicleItemDto? Handle(string licensePlate)
         {
-            VehicleEntity? entity = _repository.Vehicles.SingleOrDefault(x => x.LicensePlate == licensePlate);
+            VehicleEntity? entity = _repository.GetByPlate(licensePlate);
             return VehicleItemDto.MapFrom(entity);
         }
     }
