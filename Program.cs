@@ -27,6 +27,8 @@ builder.Host.UseSerilog((ctx, lc) => lc
 
 builder.Services.AddControllers();
 
+// IoC of Repositories and Command Query Handlers etc.
+
 builder.Services.AddDbContext<DeliveryPointContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
 builder.Services.AddSingleton<DeliveryPointCreateCommandHandler>();
 builder.Services.AddSingleton<DeliveryPointGetByIdQueryHandler>();
