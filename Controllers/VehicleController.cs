@@ -1,6 +1,8 @@
-using FleetManagementApi.Entities;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using FleetManagementApi.Handlers.Vehicle.Commands;
+using FleetManagementApi.Handlers.Vehicle.Query;
+using FleetManagementApi.Dto;
 
 namespace FleetManagementApi.Controllers;
 
@@ -8,35 +10,26 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class VehicleController : ControllerBase
 {
-    private readonly ILogger<VehicleController> _logger;
-    VehicleContext _dbContext;
+    VehicleCreateCommandHandler _createCommandHandler;
+    VehicleGetByIdQueryHandler _getByIdQueryHandler;
 
-    public VehicleController(ILogger<VehicleController> logger, VehicleContext dbContext)
+    public VehicleController(VehicleCreateCommandHandler createCommandHandler, VehicleGetByIdQueryHandler getByIdQueryHandler)
     {
-        _logger = logger;
-        _dbContext = dbContext;
-    }
-
-    [HttpGet("GetAll")]
-    public IEnumerable<VehicleEntity> GetAll()
-    {
-        return _dbContext.Vehicles;
+        _createCommandHandler = createCommandHandler;
+        _getByIdQueryHandler = getByIdQueryHandler;
     }
 
     [HttpGet("GetById")]
-    public VehicleEntity GetById(Guid id)
+    public IActionResult GetById(string licensePlate)
     {
-        return _dbContext.Vehicles.Single(x => x.Id == id);
+        VehicleItemDto? dto = _getByIdQueryHandler.GetById(licensePlate);
+        return dto == null ? NotFound() : Ok(dto);
     }
 
     [HttpPost("Create")]
     public IActionResult Create(VehicleCreateRequest request)
     {
-        VehicleEntity entity = new VehicleEntity();
-        entity.LicensePlate = request.LicensePlate;
-        _dbContext.Add<VehicleEntity>(entity);
-        _dbContext.SaveChanges();
-
-        return CreatedAtAction(nameof(GetById), new { id = entity.Id });
+        VehicleCreateResponse response = _createCommandHandler.CreateVehicle(request);
+        return CreatedAtAction(nameof(GetById), new { id = response.LicensePlate });
     }
 }

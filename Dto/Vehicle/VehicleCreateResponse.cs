@@ -1,6 +1,6 @@
 namespace FleetManagementApi.Dto
 {
-    public class VehicleCreateRequest
+    public class VehicleCreateResponse
     {
         public string? LicensePlate { get; set; }
     }
