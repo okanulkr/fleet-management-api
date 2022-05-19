@@ -12,6 +12,7 @@ namespace FleetManagementApi.Handlers.Package.Commands
 
         public BagCreateResponse? Handle(BagCreateRequest bag)
         {
+            // handle existence
             PackageEntity entity = new PackageEntity();
             entity.PackageType = PackageType.Bag;
             entity.State = State.Created;

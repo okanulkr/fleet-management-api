@@ -10,8 +10,9 @@ namespace FleetManagementApi.Handlers.DeliveryPoint.Commands
             _repository = repository;
         }
 
-        public DeliveryPointCreateResponse Handle(DeliveryPointCreateRequest deliveryPoint)
+        public DeliveryPointCreateResponse? Handle(DeliveryPointCreateRequest deliveryPoint)
         {
+            // handle existence
             var entity = new DeliveryPointEntity() { Name = deliveryPoint.Name, Value = deliveryPoint.Value };
             return new DeliveryPointCreateResponse { Value = _repository.Add(entity) };
         }

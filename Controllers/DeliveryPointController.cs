@@ -29,7 +29,7 @@ public class DeliveryPointController : ControllerBase
     [HttpPost("Create")]
     public IActionResult Create(DeliveryPointCreateRequest request)
     {
-        DeliveryPointCreateResponse response = _createCommandHandler.Handle(request);
-        return CreatedAtAction(nameof(GetById), new { id = response.Value });
+        DeliveryPointCreateResponse? response = _createCommandHandler.Handle(request);
+        return response == null ? BadRequest() : CreatedAtAction(nameof(GetById), new { id = response.Value });
     }
 }

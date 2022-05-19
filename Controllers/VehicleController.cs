@@ -29,7 +29,7 @@ public class VehicleController : ControllerBase
     [HttpPost("Create")]
     public IActionResult Create(VehicleCreateRequest request)
     {
-        VehicleCreateResponse response = _createCommandHandler.Handle(request);
-        return CreatedAtAction(nameof(GetById), new { id = response.LicensePlate });
+        VehicleCreateResponse? response = _createCommandHandler.Handle(request);
+        return response == null ? BadRequest() : CreatedAtAction(nameof(GetById), new { id = response.LicensePlate });
     }
 }

@@ -11,7 +11,7 @@ namespace FleetManagementApi.Handlers.Vehicle.Commands
             _repository = repository;
         }
 
-        public VehicleCreateResponse Handle(VehicleCreateRequest vehicle)
+        public VehicleCreateResponse? Handle(VehicleCreateRequest vehicle)
         {
             // handle existence
             var entity = new VehicleEntity() { LicensePlate = vehicle.LicensePlate };
