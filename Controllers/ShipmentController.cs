@@ -19,7 +19,7 @@ public class ShipmentController : ControllerBase
     [HttpPost("Ship")]
     public IActionResult Ship(ShipmentRequest request)
     {
-        ShipmentResponse? response = _commandHandler.Ship(request);
+        ShipmentResponse? response = _commandHandler.Handle(request);
         return response == null ? BadRequest() : Ok(response);
     }
 }

@@ -22,14 +22,14 @@ public class VehicleController : ControllerBase
     [HttpGet("GetById")]
     public IActionResult GetById(string licensePlate)
     {
-        VehicleItemDto? dto = _getByIdQueryHandler.GetById(licensePlate);
+        VehicleItemDto? dto = _getByIdQueryHandler.Handle(licensePlate);
         return dto == null ? NotFound() : Ok(dto);
     }
 
     [HttpPost("Create")]
     public IActionResult Create(VehicleCreateRequest request)
     {
-        VehicleCreateResponse response = _createCommandHandler.CreateVehicle(request);
+        VehicleCreateResponse response = _createCommandHandler.Handle(request);
         return CreatedAtAction(nameof(GetById), new { id = response.LicensePlate });
     }
 }

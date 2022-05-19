@@ -11,7 +11,7 @@ namespace FleetManagementApi.Handlers.DeliveryPoint.Query
             _repository = repository;
         }
 
-        public DeliveryPointItemDto? GetById(int value)
+        public DeliveryPointItemDto? Handle(int value)
         {
             DeliveryPointEntity? entity = _repository.DeliveryPoints.SingleOrDefault(x => x.Value == value);
             return DeliveryPointItemDto.MapFrom(entity);

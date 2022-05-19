@@ -17,7 +17,7 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
             _packageAssignmentRepository = packageAssignmentRepository;
         }
 
-        public Response.ShipmentResponse? Ship(Request.ShipmentRequest shipment)
+        public Response.ShipmentResponse? Handle(Request.ShipmentRequest shipment)
         {
             // TODO: add existince checks, return null if any resource not found
             _packageRepository.Add(new PackageEntity() { Barcode = "C725799", DeliveryPoint = 2 });

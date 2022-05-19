@@ -22,14 +22,14 @@ public class DeliveryPointController : ControllerBase
     [HttpGet("GetById")]
     public IActionResult GetById(int value)
     {
-        DeliveryPointItemDto? dto = _getByIdQueryHandler.GetById(value);
+        DeliveryPointItemDto? dto = _getByIdQueryHandler.Handle(value);
         return dto == null ? NotFound() : Ok(dto);
     }
 
     [HttpPost("Create")]
     public IActionResult Create(DeliveryPointCreateRequest request)
     {
-        DeliveryPointCreateResponse response = _createCommandHandler.CreateDeliveryPoint(request);
+        DeliveryPointCreateResponse response = _createCommandHandler.Handle(request);
         return CreatedAtAction(nameof(GetById), new { id = response.Value });
     }
 }

@@ -11,7 +11,7 @@ namespace FleetManagementApi.Handlers.Vehicle.Query
             _repository = repository;
         }
 
-        public VehicleItemDto? GetById(string licensePlate)
+        public VehicleItemDto? Handle(string licensePlate)
         {
             VehicleEntity? entity = _repository.Vehicles.SingleOrDefault(x => x.LicensePlate == licensePlate);
             return VehicleItemDto.MapFrom(entity);
