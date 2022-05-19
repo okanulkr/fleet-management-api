@@ -1,4 +1,7 @@
+using FleetManagementApi.Dto;
 using FleetManagementApi.Entities;
+using FleetManagementApi.Handlers.DeliveryPoint.Commands;
+using FleetManagementApi.Handlers.DeliveryPoint.Query;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleetManagementApi.Controllers;
@@ -7,36 +10,26 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class DeliveryPointController : ControllerBase
 {
-    private readonly ILogger<DeliveryPointController> _logger;
-    DeliveryPointContext _dbContext;
+    DeliveryPointCreateCommandHandler _createCommandHandler;
+    DeliveryPointGetByIdQueryHandler _getByIdQueryHandler;
 
-    public DeliveryPointController(ILogger<DeliveryPointController> logger, DeliveryPointContext dbContext)
+    public DeliveryPointController(DeliveryPointCreateCommandHandler createCommandHandler, DeliveryPointGetByIdQueryHandler getByIdQueryHandler)
     {
-        _logger = logger;
-        _dbContext = dbContext;
-    }
-
-    [HttpGet("GetAll")]
-    public IEnumerable<DeliveryPointEntity> GetAll()
-    {
-        return _dbContext.DeliveryPoints;
+        _createCommandHandler = createCommandHandler;
+        _getByIdQueryHandler = getByIdQueryHandler;
     }
 
     [HttpGet("GetById")]
-    public DeliveryPointEntity GetById(Guid id)
+    public IActionResult GetById(int value)
     {
-        return _dbContext.DeliveryPoints.Single(x => x.Id == id);
+        DeliveryPointItemDto? dto = _getByIdQueryHandler.GetById(value);
+        return dto == null ? NotFound() : Ok(dto);
     }
 
     [HttpPost("Create")]
     public IActionResult Create(DeliveryPointCreateRequest request)
     {
-        DeliveryPointEntity entity = new DeliveryPointEntity();
-        entity.Name = request.Name;
-        entity.Value = request.Value;
-        _dbContext.Add<DeliveryPointEntity>(entity);
-        _dbContext.SaveChanges();
-
-        return CreatedAtAction(nameof(GetById), new { id = entity.Id });
+        DeliveryPointCreateResponse response = _createCommandHandler.CreateDeliveryPoint(request);
+        return CreatedAtAction(nameof(GetById), new { id = response.Value });
     }
 }
