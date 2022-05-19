@@ -9,17 +9,17 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class ShipmentController : ControllerBase
 {
-    ShipmentCommandHandler _handler;
+    ShipmentCommandHandler _commandHandler;
 
-    public ShipmentController(ShipmentCommandHandler handler)
+    public ShipmentController(ShipmentCommandHandler commandHandler)
     {
-        _handler = handler;
+        _commandHandler = commandHandler;
     }
 
     [HttpPost("Ship")]
     public IActionResult Ship(ShipmentRequest request)
     {
-        ShipmentResponse? response = _handler.Ship(request);
+        ShipmentResponse? response = _commandHandler.Ship(request);
         return response == null ? BadRequest() : Ok(response);
     }
 }

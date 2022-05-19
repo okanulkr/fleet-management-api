@@ -1,5 +1,8 @@
 using FleetManagementApi.Entities;
+using FleetManagementApi.Handlers.PackageAssignment.Query;
 using Microsoft.AspNetCore.Mvc;
+using FleetManagementApi.Handlers.PackageAssignment.Commands;
+using FleetManagementApi.Dto;
 
 namespace FleetManagementApi.Controllers;
 
@@ -7,51 +10,26 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class PackageAssignmentController : ControllerBase
 {
-    private readonly ILogger<PackageAssignmentController> _logger;
-    PackageAssignmentContext _dbContext;
-    PackageContext _packageDbContext;
+    PackageAssignmentGetByIdQueryHandler _getByIdQueryHandler;
+    PackageAssignmentCreateCommandHandler _createCommandHandler;
 
-    public PackageAssignmentController(ILogger<PackageAssignmentController> logger, PackageAssignmentContext dbContext, PackageContext packageDbContext)
+    public PackageAssignmentController(PackageAssignmentGetByIdQueryHandler getByIdQueryHandler, PackageAssignmentCreateCommandHandler createCommandHandler)
     {
-        _logger = logger;
-        _dbContext = dbContext;
-        _packageDbContext = packageDbContext;
-    }
-
-    [HttpGet("GetAll")]
-    public IEnumerable<PackageAssignmentEntity> GetAll()
-    {
-        return _dbContext.PackageAssignments;
+        _getByIdQueryHandler = getByIdQueryHandler;
+        _createCommandHandler = createCommandHandler;
     }
 
     [HttpGet("GetById")]
-    public PackageAssignmentEntity GetById(Guid id)
+    public IActionResult GetById(string id)
     {
-        return _dbContext.PackageAssignments.Single(x => x.Id == id);
+        PackageAssignmentItemDto? dto = _getByIdQueryHandler.Handle(id);
+        return dto == null ? NotFound() : Ok(dto);
     }
 
     [HttpPost("Create")]
     public IActionResult Create(PackageAssignmentCreateRequest request)
     {
-        // Update package state as 'LoadedIntoBag'
-        PackageEntity package = _packageDbContext.Packages.Single(x => x.Barcode == request.Barcode);
-        package.State = State.LoadedIntoBag;
-
-        // Increment weight of bag by package weight
-        PackageEntity bag = _packageDbContext.Packages.Single(x => x.Barcode == request.BagBarcode);
-        bag.Weight += package.Weight;
-
-        _packageDbContext.SaveChanges();
-
-        // Add package to bag assignment
-        PackageAssignmentEntity entity = new PackageAssignmentEntity()
-        {
-            Barcode = request.Barcode,
-            BagBarcode = request.BagBarcode
-        };
-        _dbContext.Add(entity);
-        _dbContext.SaveChanges();
-
-        return CreatedAtAction(nameof(GetById), new { id = entity.Id });
+        PackageAssignmentCreateResponse? response = _createCommandHandler.Handle(request);
+        return response == null ? BadRequest() : CreatedAtAction(nameof(GetById), new { id = response.CompositeId });
     }
 }
