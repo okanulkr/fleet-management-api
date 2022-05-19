@@ -4,8 +4,8 @@ namespace FleetManagementApi.Handlers.Package.Commands
 {
     public class PackageCreateCommandHandler
     {
-        PackageContext _repository;
-        public PackageCreateCommandHandler(PackageContext repository)
+        IPackageRepository _repository;
+        public PackageCreateCommandHandler(IPackageRepository repository)
         {
             _repository = repository;
         }
@@ -18,9 +18,7 @@ namespace FleetManagementApi.Handlers.Package.Commands
             entity.Barcode = package.Barcode;
             entity.DeliveryPoint = package.DeliveryPoint;
             entity.Weight = package.Weight;
-            _repository.Add<PackageEntity>(entity);
-            _repository.SaveChanges();
-            return new PackageCreateResponse { Barcode = entity.Barcode };
+            return new PackageCreateResponse { Barcode = _repository.Add(entity) };
         }
     }
 }
