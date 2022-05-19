@@ -7,10 +7,10 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
     public class ShipmentCommandHandler
     {
         private readonly ILogger<ShipmentCommandHandler> _logger;
-        PackageContext _packageRepository;
-        PackageAssignmentContext _packageAssignmentRepository;
+        IPackageRepository _packageRepository;
+        IPackageAssignmentRepository _packageAssignmentRepository;
 
-        public ShipmentCommandHandler(ILogger<ShipmentCommandHandler> logger, PackageContext packageRepository, PackageAssignmentContext packageAssignmentRepository)
+        public ShipmentCommandHandler(ILogger<ShipmentCommandHandler> logger, IPackageRepository packageRepository, IPackageAssignmentRepository packageAssignmentRepository)
         {
             _logger = logger;
             _packageRepository = packageRepository;
@@ -44,9 +44,6 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
             _packageAssignmentRepository.Add(new PackageAssignmentEntity() { Barcode = "P9988000128", BagBarcode = "C725800", });
             _packageAssignmentRepository.Add(new PackageAssignmentEntity() { Barcode = "P9988000129", BagBarcode = "C725800", });
 
-            _packageRepository.SaveChanges();
-            _packageAssignmentRepository.SaveChanges();
-
             var response = new Response.ShipmentResponse();
             response.Plate = shipment.Plate;
             response.Route = new List<Response.ShipmentRoute>();
@@ -60,7 +57,7 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
                 };
                 foreach (var delivery in point.Deliveries!)
                 {
-                    PackageEntity package = _packageRepository.Packages.Single(x => x.Barcode == delivery.Barcode);
+                    PackageEntity package = _packageRepository.GetByBarcode(delivery.Barcode!)!;
                     package.State = State.Loaded;
 
                     bool isBag = package.PackageType == PackageType.Bag;
@@ -68,7 +65,7 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
                     if (!isBag) // package type
                     {
 
-                        bool inBag = _packageAssignmentRepository.PackageAssignments.Any(x => x.Barcode == package.Barcode);
+                        bool inBag = _packageAssignmentRepository.PackageInBag(package.Barcode!);
 
                         // not in bag
                         if (!inBag && point.DeliveryPoint != 3 && point.DeliveryPoint == package.DeliveryPoint)
@@ -79,10 +76,9 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
                         // in bag
                         if (inBag)
                         {
-                            PackageAssignmentEntity packageAssignments = _packageAssignmentRepository.PackageAssignments
-                                    .Single(x => x.Barcode == package.Barcode);
+                            PackageAssignmentEntity packageAssignments = _packageAssignmentRepository.GetBagByBarcode(package.Barcode!)!;
 
-                            PackageEntity bag = _packageRepository.Packages.Single(x => x.Barcode == packageAssignments.BagBarcode);
+                            PackageEntity bag = _packageRepository.GetByBarcode(packageAssignments.BagBarcode!)!;
 
                             if (bag.DeliveryPoint == point.DeliveryPoint && bag.DeliveryPoint == package.DeliveryPoint)
                             {
@@ -93,16 +89,14 @@ namespace FleetManagementApi.Handlers.Shipment.Commands
                     }
                     else // bag type
                     {
-                        List<PackageAssignmentEntity> packageAssignments = _packageAssignmentRepository.PackageAssignments
-                                .Where(x => x.BagBarcode == package.Barcode)
-                                .ToList();
+                        List<PackageAssignmentEntity> packageAssignments = _packageAssignmentRepository.GetPackagesInsideBag(package.Barcode!).ToList();
 
                         if (point.DeliveryPoint != 1 && point.DeliveryPoint == package.DeliveryPoint)
                         {
                             package.State = State.Unloaded;
                             foreach (PackageAssignmentEntity packageAssignment in packageAssignments)
                             {
-                                PackageEntity packageOfBag = _packageRepository.Packages.Single(x => x.Barcode == packageAssignment.Barcode);
+                                PackageEntity packageOfBag = _packageRepository.GetByBarcode(packageAssignment.Barcode!)!;
                                 if (packageOfBag.DeliveryPoint == package.DeliveryPoint && packageOfBag.DeliveryPoint == point.DeliveryPoint)
                                 {
                                     packageOfBag.State = State.Unloaded;

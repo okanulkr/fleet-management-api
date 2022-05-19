@@ -17,4 +17,19 @@ public class PackageAssignmentRepository : IPackageAssignmentRepository
     {
         return _context.PackageAssignments.SingleOrDefault(x => x.BagBarcode + x.Barcode == compositeId);
     }
+
+    public PackageAssignmentEntity? GetBagByBarcode(string barcode)
+    {
+        return _context.PackageAssignments.Single(x => x.Barcode == barcode);
+    }
+
+    public bool PackageInBag(string barcode)
+    {
+        return _context.PackageAssignments.Any(x => x.Barcode == barcode);
+    }
+
+    public IEnumerable<PackageAssignmentEntity> GetPackagesInsideBag(string barcode)
+    {
+        return _context.PackageAssignments.Where(x => x.BagBarcode == barcode);
+    }
 }
