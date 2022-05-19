@@ -5,17 +5,16 @@ namespace FleetManagementApi.Handlers.PackageAssignment.Query
 {
     public class PackageAssignmentGetByIdQueryHandler
     {
-        PackageAssignmentContext _repository;
+        IPackageAssignmentRepository _repository;
 
-        public PackageAssignmentGetByIdQueryHandler(PackageAssignmentContext repository)
+        public PackageAssignmentGetByIdQueryHandler(IPackageAssignmentRepository repository)
         {
             _repository = repository;
         }
 
         public PackageAssignmentItemDto? Handle(string id)
         {
-            PackageAssignmentEntity? entity = _repository.PackageAssignments
-                .SingleOrDefault(x => x.BagBarcode + x.Barcode == id);
+            PackageAssignmentEntity? entity = _repository.GetByCompositeId(id);
             return PackageAssignmentItemDto.MapFrom(entity);
         }
     }
