@@ -6,7 +6,7 @@ namespace FleetManagementApi.Handlers.Package.Commands
 {
     public class BagCreateCommandHandler
     {
-        IPackageRepository _repository;
+        private readonly IPackageRepository _repository;
         public BagCreateCommandHandler(IPackageRepository repository)
         {
             _repository = repository;

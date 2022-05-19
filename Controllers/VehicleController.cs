@@ -10,8 +10,8 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class VehicleController : ControllerBase
 {
-    VehicleCreateCommandHandler _createCommandHandler;
-    VehicleGetByIdQueryHandler _getByIdQueryHandler;
+    private readonly VehicleCreateCommandHandler _createCommandHandler;
+    private readonly VehicleGetByIdQueryHandler _getByIdQueryHandler;
 
     public VehicleController(VehicleCreateCommandHandler createCommandHandler, VehicleGetByIdQueryHandler getByIdQueryHandler)
     {

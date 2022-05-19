@@ -6,7 +6,7 @@ namespace FleetManagementApi.Handlers.PackageAssignment.Query
 {
     public class PackageAssignmentGetByIdQueryHandler
     {
-        IPackageAssignmentRepository _repository;
+        private readonly IPackageAssignmentRepository _repository;
 
         public PackageAssignmentGetByIdQueryHandler(IPackageAssignmentRepository repository)
         {

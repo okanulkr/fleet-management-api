@@ -9,8 +9,8 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class PackageAssignmentController : ControllerBase
 {
-    PackageAssignmentGetByIdQueryHandler _getByIdQueryHandler;
-    PackageAssignmentCreateCommandHandler _createCommandHandler;
+    private readonly PackageAssignmentGetByIdQueryHandler _getByIdQueryHandler;
+    private readonly PackageAssignmentCreateCommandHandler _createCommandHandler;
 
     public PackageAssignmentController(PackageAssignmentGetByIdQueryHandler getByIdQueryHandler, PackageAssignmentCreateCommandHandler createCommandHandler)
     {

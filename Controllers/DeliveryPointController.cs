@@ -9,8 +9,8 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class DeliveryPointController : ControllerBase
 {
-    DeliveryPointCreateCommandHandler _createCommandHandler;
-    DeliveryPointGetByIdQueryHandler _getByIdQueryHandler;
+    private readonly DeliveryPointCreateCommandHandler _createCommandHandler;
+    private readonly DeliveryPointGetByIdQueryHandler _getByIdQueryHandler;
 
     public DeliveryPointController(DeliveryPointCreateCommandHandler createCommandHandler, DeliveryPointGetByIdQueryHandler getByIdQueryHandler)
     {

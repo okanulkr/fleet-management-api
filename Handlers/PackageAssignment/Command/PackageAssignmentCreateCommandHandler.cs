@@ -8,8 +8,8 @@ namespace FleetManagementApi.Handlers.PackageAssignment.Command
 {
     public class PackageAssignmentCreateCommandHandler
     {
-        IPackageRepository _packageRepository;
-        IPackageAssignmentRepository _packageAssignmentRepository;
+        private readonly IPackageRepository _packageRepository;
+        private readonly IPackageAssignmentRepository _packageAssignmentRepository;
         public PackageAssignmentCreateCommandHandler(IPackageRepository packageRepository, IPackageAssignmentRepository packageAssignmentRepository)
         {
             _packageRepository = packageRepository;

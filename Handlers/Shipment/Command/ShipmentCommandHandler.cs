@@ -10,8 +10,8 @@ namespace FleetManagementApi.Handlers.Shipment.Command
     public class ShipmentCommandHandler
     {
         private readonly ILogger<ShipmentCommandHandler> _logger;
-        IPackageRepository _packageRepository;
-        IPackageAssignmentRepository _packageAssignmentRepository;
+        private readonly IPackageRepository _packageRepository;
+        private readonly IPackageAssignmentRepository _packageAssignmentRepository;
 
         public ShipmentCommandHandler(ILogger<ShipmentCommandHandler> logger, IPackageRepository packageRepository, IPackageAssignmentRepository packageAssignmentRepository)
         {

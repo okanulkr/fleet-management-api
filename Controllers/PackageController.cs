@@ -9,9 +9,9 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class PackageController : ControllerBase
 {
-    BagCreateCommandHandler _createBagCommandHandler;
-    PackageGetByIdQueryHandler _getByIdQueryHandler;
-    PackageCreateCommandHandler _createPackageCommandHandler;
+    private readonly BagCreateCommandHandler _createBagCommandHandler;
+    private readonly PackageGetByIdQueryHandler _getByIdQueryHandler;
+    private readonly PackageCreateCommandHandler _createPackageCommandHandler;
     public PackageController(
         PackageGetByIdQueryHandler queryByIdQueryHandler,
         PackageCreateCommandHandler createPackageCommandHandler,

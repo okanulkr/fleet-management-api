@@ -9,7 +9,7 @@ namespace FleetManagementApi.Controllers;
 [Route("[controller]")]
 public class ShipmentController : ControllerBase
 {
-    ShipmentCommandHandler _commandHandler;
+    private readonly ShipmentCommandHandler _commandHandler;
 
     public ShipmentController(ShipmentCommandHandler commandHandler)
     {
