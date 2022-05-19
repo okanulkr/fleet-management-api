@@ -30,27 +30,27 @@ builder.Services.AddControllers();
 // IoC of Repositories and Command Query Handlers etc.
 
 builder.Services.AddDbContext<DeliveryPointContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
-builder.Services.AddSingleton<DeliveryPointCreateCommandHandler>();
-builder.Services.AddSingleton<DeliveryPointGetByIdQueryHandler>();
-builder.Services.AddSingleton<IDeliveryPointRepository, DeliveryPointRepository>();
+builder.Services.AddScoped<DeliveryPointCreateCommandHandler>();
+builder.Services.AddScoped<DeliveryPointGetByIdQueryHandler>();
+builder.Services.AddScoped<IDeliveryPointRepository, DeliveryPointRepository>();
 
 builder.Services.AddDbContext<VehicleContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
-builder.Services.AddSingleton<VehicleCreateCommandHandler>();
-builder.Services.AddSingleton<VehicleGetByIdQueryHandler>();
-builder.Services.AddSingleton<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<VehicleCreateCommandHandler>();
+builder.Services.AddScoped<VehicleGetByIdQueryHandler>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 
 builder.Services.AddDbContext<PackageAssignmentContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
-builder.Services.AddSingleton<PackageAssignmentCreateCommandHandler>();
-builder.Services.AddSingleton<PackageAssignmentGetByIdQueryHandler>();
-builder.Services.AddSingleton<IPackageAssignmentRepository, PackageAssignmentRepository>();
+builder.Services.AddScoped<PackageAssignmentCreateCommandHandler>();
+builder.Services.AddScoped<PackageAssignmentGetByIdQueryHandler>();
+builder.Services.AddScoped<IPackageAssignmentRepository, PackageAssignmentRepository>();
 
 builder.Services.AddDbContext<PackageContext>(opt => opt.UseInMemoryDatabase("FleetManagementDb"));
-builder.Services.AddSingleton<PackageCreateCommandHandler>();
-builder.Services.AddSingleton<BagCreateCommandHandler>();
-builder.Services.AddSingleton<PackageGetByIdQueryHandler>();
-builder.Services.AddSingleton<IPackageRepository, PackageRepository>();
+builder.Services.AddScoped<PackageCreateCommandHandler>();
+builder.Services.AddScoped<BagCreateCommandHandler>();
+builder.Services.AddScoped<PackageGetByIdQueryHandler>();
+builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 
-builder.Services.AddSingleton<ShipmentCommandHandler>();
+builder.Services.AddScoped<ShipmentCommandHandler>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
